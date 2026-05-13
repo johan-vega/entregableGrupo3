@@ -3,47 +3,49 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Medic;
+use App\Http\Requests\StoreMedicRequest;
+use App\Http\Requests\UpdateMedicRequest;
+use App\Http\Resources\MedicResource;
 
 class MedicController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $medics = Medic::all();
+
+        return MedicResource::collection($medics);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreMedicRequest $request)
     {
-        //
+        $medic = Medic::create($request->validated());
+
+        return new MedicResource($medic);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $medic = Medic::findOrFail($id);
+
+        return new MedicResource($medic);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateMedicRequest $request, string $id)
     {
-        //
+        $medic = Medic::findOrFail($id);
+
+        $medic->update($request->validated());
+
+        return new MedicResource($medic);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $medic = Medic::findOrFail($id);
+
+        $medic->delete();
+
+        return response()->json(null, 204);
     }
 }

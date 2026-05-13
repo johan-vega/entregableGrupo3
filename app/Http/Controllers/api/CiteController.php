@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Cite;
+use App\Http\Requests\StoreCiteRequest;
+use App\Http\Requests\UpdateCiteRequest;
+use App\Http\Resources\CiteResource;
 
 class CiteController extends Controller
 {
@@ -12,15 +15,19 @@ class CiteController extends Controller
      */
     public function index()
     {
-        //
+        $cites = Cite::all();
+
+        return CiteResource::collection($cites);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCiteRequest $request)
     {
-        //
+        $cite = Cite::create($request->validated());
+
+        return new CiteResource($cite);
     }
 
     /**
@@ -28,15 +35,21 @@ class CiteController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $cite = Cite::findOrFail($id);
+
+        return new CiteResource($cite);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCiteRequest $request, string $id)
     {
-        //
+        $cite = Cite::findOrFail($id);
+
+        $cite->update($request->validated());
+
+        return new CiteResource($cite);
     }
 
     /**
@@ -44,6 +57,10 @@ class CiteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cite = Cite::findOrFail($id);
+
+        $cite->delete();
+
+        return response()->json(null, 204);
     }
 }
