@@ -7,6 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Medications extends Model
 {
-    /** @use HasFactory<\Database\Factories\MedicationsFactory> */
-    use HasFactory;
+    protected $primaryKey = 'id_medication';
+
+    protected $fillable = [
+        'nombre',
+        'dosis',
+        'frecuencia',
+        'duracion',
+        'id_treatment',
+        'proveedor',
+        'efectos_secundarios'
+    ];
+
+    public function treatments()
+    {
+        return $this->belongsTo(Treatment::class, 'id_treatment', 'id_treatment');
+    }
 }

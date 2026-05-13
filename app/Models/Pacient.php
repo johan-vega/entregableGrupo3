@@ -5,8 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class pacient extends Model
+class Pacient extends Model
 {
-    /** @use HasFactory<\Database\Factories\PacientFactory> */
-    use HasFactory;
+    protected $primaryKey = 'id_pacient';
+
+    protected $fillable = [
+        'nombre',
+        'apellido',
+        'fecha_nacimiento',
+        'genero',
+        'telefono',
+        'direccion',
+        'tipo_sangre'
+    ];
+
+    public function cites()
+    {
+        return $this->hasMany(Cite::class, 'id_pacient', 'id_pacient');
+    }
+
+    public function diagnostics()
+    {
+        return $this->hasMany(Diagnostic::class, 'id_pacient', 'id_pacient');
+    }
 }
