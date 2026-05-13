@@ -23,4 +23,6 @@ class Medication extends Model
     {
         return $this->belongsTo(Treatment::class, 'id_treatment', 'id_treatment');
     }
+    /** @use HasFactory<\Database\Factories\MedicationFactory> */
+    use HasFactory;
 }
