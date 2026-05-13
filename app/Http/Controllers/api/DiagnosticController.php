@@ -3,47 +3,49 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Diagnostic;
+use App\Http\Requests\StoreDiagnosticRequest;
+use App\Http\Requests\UpdateDiagnosticRequest;
+use App\Http\Resources\DiagnosticResource;
 
 class DiagnosticController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $diagnostics = Diagnostic::all();
+
+        return DiagnosticResource::collection($diagnostics);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreDiagnosticRequest $request)
     {
-        //
+        $diagnostic = Diagnostic::create($request->validated());
+
+        return new DiagnosticResource($diagnostic);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $diagnostic = Diagnostic::findOrFail($id);
+
+        return new DiagnosticResource($diagnostic);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateDiagnosticRequest $request, string $id)
     {
-        //
+        $diagnostic = Diagnostic::findOrFail($id);
+
+        $diagnostic->update($request->validated());
+
+        return new DiagnosticResource($diagnostic);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $diagnostic = Diagnostic::findOrFail($id);
+
+        $diagnostic->delete();
+
+        return response()->json(null, 204);
     }
 }

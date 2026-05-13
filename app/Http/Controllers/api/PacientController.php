@@ -3,47 +3,49 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Pacient;
+use App\Http\Requests\StorePacientRequest;
+use App\Http\Requests\UpdatePacientRequest;
+use App\Http\Resources\PacientResource;
 
-class pacientController extends Controller
+class PacientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $pacients = Pacient::all();
+
+        return PacientResource::collection($pacients);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StorePacientRequest $request)
     {
-        //
+        $pacient = Pacient::create($request->validated());
+
+        return new PacientResource($pacient);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $pacient = Pacient::findOrFail($id);
+
+        return new PacientResource($pacient);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdatePacientRequest $request, string $id)
     {
-        //
+        $pacient = Pacient::findOrFail($id);
+
+        $pacient->update($request->validated());
+
+        return new PacientResource($pacient);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $pacient = Pacient::findOrFail($id);
+
+        $pacient->delete();
+
+        return response()->json(null, 204);
     }
 }

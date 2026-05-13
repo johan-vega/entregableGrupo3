@@ -3,47 +3,49 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Treatment;
+use App\Http\Requests\StoreTreatmentRequest;
+use App\Http\Requests\UpdateTreatmentRequest;
+use App\Http\Resources\TreatmentResource;
 
 class TreatmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $treatments = Treatment::all();
+
+        return TreatmentResource::collection($treatments);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreTreatmentRequest $request)
     {
-        //
+        $treatment = Treatment::create($request->validated());
+
+        return new TreatmentResource($treatment);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $treatment = Treatment::findOrFail($id);
+
+        return new TreatmentResource($treatment);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateTreatmentRequest $request, string $id)
     {
-        //
+        $treatment = Treatment::findOrFail($id);
+
+        $treatment->update($request->validated());
+
+        return new TreatmentResource($treatment);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $treatment = Treatment::findOrFail($id);
+
+        $treatment->delete();
+
+        return response()->json(null, 204);
     }
 }
