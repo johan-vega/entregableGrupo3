@@ -12,7 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cites', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_cita');
+            $table->dateTime('fecha');
+            $table->string('motivo');
+
+            $table->foreignId('id_pacient')->constrained('pacients', 'id_pacient')->onDelete('cascade');
+
+            $table->foreignId('id_medic')->constrained('medics', 'id_medic')->onDelete('cascade');
+
+            $table->string('estado');
+            $table->text('observaciones')->nullable();
+            $table->string('sala');
             $table->timestamps();
         });
     }
