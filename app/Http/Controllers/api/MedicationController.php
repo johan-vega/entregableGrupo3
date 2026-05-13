@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Medications;
+use App\Models\Medication;
 use App\Http\Requests\StoreMedicationRequest;
 use App\Http\Requests\UpdateMedicationRequest;
 use App\Http\Resources\MedicationResource;
@@ -12,28 +12,28 @@ class MedicationsController extends Controller
 {
     public function index()
     {
-        $medications = Medications::all();
+        $medications = Medication::all();
 
         return MedicationResource::collection($medications);
     }
 
     public function store(StoreMedicationRequest $request)
     {
-        $medication = Medications::create($request->validated());
+        $medication = Medication::create($request->validated());
 
         return new MedicationResource($medication);
     }
 
     public function show(string $id)
     {
-        $medication = Medications::findOrFail($id);
+        $medication = Medication::findOrFail($id);
 
         return new MedicationResource($medication);
     }
 
     public function update(UpdateMedicationRequest $request, string $id)
     {
-        $medication = Medications::findOrFail($id);
+        $medication = Medication::findOrFail($id);
 
         $medication->update($request->validated());
 
@@ -42,7 +42,7 @@ class MedicationsController extends Controller
 
     public function destroy(string $id)
     {
-        $medication = Medications::findOrFail($id);
+        $medication = Medication::findOrFail($id);
 
         $medication->delete();
 
