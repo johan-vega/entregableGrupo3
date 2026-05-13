@@ -28,9 +28,8 @@ class Treatment extends Model
     {
         return $this->belongsTo(Medic::class, 'id_medic', 'id_medic');
     }
-
     public function medications()
     {
-        return $this->hasMany(Medications::class, 'id_treatment', 'id_treatment');
+        return $this->hasMany(Medication::class, 'id_treatment', 'id_treatment');
     }
 }
