@@ -12,7 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('medications', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_medication');
+            $table->string('nombre');
+            $table->string('dosis');
+            $table->string('frecuencia');
+            $table->string('duracion');
+
+            $table->foreignId('id_treatment')->constrained('treatments', 'id_treatment')->onDelete('cascade');
+
+            $table->string('proveedor');
+            $table->string('efectos_secundarios');
             $table->timestamps();
         });
     }

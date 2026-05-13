@@ -12,7 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('treatments', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_treatment');
+            $table->string('nombre');
+            $table->text('descripcion');
+            $table->string('duracion');
+
+            $table->foreignId('id_diagnostic')->constrained('diagnostics', 'id_diagnostic')->onDelete('cascade');
+            $table->foreignId('id_medic')->constrained('medics', 'id_medic')->onDelete('cascade');
+
+            $table->string('estado');
+            $table->string('frecuencia_administracion');
             $table->timestamps();
         });
     }
