@@ -154,7 +154,7 @@
                         <label for="admin_estado">Estado</label>
                         <select id="admin_estado" class="input" name="estado" required>
                             @foreach ($citeStatuses as $status)
-                            <option value="{{ $status }}" @selected(old('estado', 'Pendiente') === $status)>{{ $status }}</option>
+                            <option value="{{ $status }}" @selected(old('estado', 'Pendiente' )===$status)>{{ $status }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -166,7 +166,7 @@
                         <select id="admin_paciente" class="input" name="id_pacient" required>
                             <option value="">Selecciona un paciente</option>
                             @foreach ($pacients as $item)
-                            <option value="{{ $item->id_pacient }}" @selected((string) old('id_pacient') === (string) $item->id_pacient)>
+                            <option value="{{ $item->id_pacient }}" @selected((string) old('id_pacient')===(string) $item->id_pacient)>
                                 {{ $item->nombre }} {{ $item->apellido }}
                             </option>
                             @endforeach
@@ -177,7 +177,7 @@
                         <select id="admin_medico" class="input" name="id_medic" required>
                             <option value="">Selecciona un medico</option>
                             @foreach ($medics as $item)
-                            <option value="{{ $item->id_medic }}" @selected((string) old('id_medic') === (string) $item->id_medic)>
+                            <option value="{{ $item->id_medic }}" @selected((string) old('id_medic')===(string) $item->id_medic)>
                                 Dr. {{ $item->nombre }} {{ $item->apellido }} | {{ $item->especialidad }}
                             </option>
                             @endforeach
@@ -227,7 +227,7 @@
                         <select id="treatment_medico" class="input" name="id_medic" required>
                             <option value="">Selecciona un medico</option>
                             @foreach ($medics as $item)
-                            <option value="{{ $item->id_medic }}" @selected((string) old('id_medic') === (string) $item->id_medic)>
+                            <option value="{{ $item->id_medic }}" @selected((string) old('id_medic')===(string) $item->id_medic)>
                                 Dr. {{ $item->nombre }} {{ $item->apellido }} | {{ $item->especialidad }}
                             </option>
                             @endforeach
@@ -238,7 +238,7 @@
                         <select id="treatment_diagnostic" class="input" name="id_diagnostic" required>
                             <option value="">Selecciona un diagnostico</option>
                             @foreach ($diagnostics as $item)
-                            <option value="{{ $item->id_diagnostic }}" @selected((string) old('id_diagnostic') === (string) $item->id_diagnostic)>
+                            <option value="{{ $item->id_diagnostic }}" @selected((string) old('id_diagnostic')===(string) $item->id_diagnostic)>
                                 #{{ $item->id_diagnostic }} - {{ optional($item->pacients)->nombre }} {{ optional($item->pacients)->apellido }}
                             </option>
                             @endforeach
@@ -251,7 +251,7 @@
                         <label for="treatment_estado">Estado</label>
                         <select id="treatment_estado" class="input" name="estado" required>
                             @foreach ($treatmentStatuses as $status)
-                            <option value="{{ $status }}" @selected(old('estado', 'Activo') === $status)>{{ $status }}</option>
+                            <option value="{{ $status }}" @selected(old('estado', 'Activo' )===$status)>{{ $status }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -663,7 +663,7 @@
                     <select id="patient_medico" class="input" name="id_medic" required>
                         <option value="">Selecciona un medico</option>
                         @foreach ($medics as $item)
-                        <option value="{{ $item->id_medic }}" @selected((string) old('id_medic') === (string) $item->id_medic)>
+                        <option value="{{ $item->id_medic }}" @selected((string) old('id_medic')===(string) $item->id_medic)>
                             Dr. {{ $item->nombre }} {{ $item->apellido }} | {{ $item->especialidad }}
                         </option>
                         @endforeach
