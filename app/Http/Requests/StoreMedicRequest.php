@@ -12,7 +12,7 @@ class StoreMedicRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()?->isAdmin() ?? false;
     }
 
     /**
@@ -23,7 +23,26 @@ class StoreMedicRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre' => ['required', 'string', 'max:255'],
+            'apellido' => ['required', 'string', 'max:255'],
+            'especialidad' => ['required', 'string', 'max:255'],
+            'telefono' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'email', 'max:255', 'unique:medics,email'],
+            'licencia' => ['required', 'string', 'max:255'],
+            'anios_experiencia' => ['required', 'integer', 'min:0', 'max:80'],
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'nombre' => 'nombre',
+            'apellido' => 'apellido',
+            'especialidad' => 'especialidad',
+            'telefono' => 'telefono',
+            'email' => 'email',
+            'licencia' => 'licencia',
+            'anios_experiencia' => 'anios de experiencia',
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 
 class Medic extends Model
 {
@@ -18,6 +19,21 @@ class Medic extends Model
         'licencia',
         'anios_experiencia'
     ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (self $medic) {
+            if ($medic->anios_experiencia === null) {
+                return;
+            }
+
+            foreach (['años_experiencia', 'aÃ±os_experiencia'] as $legacyColumn) {
+                if (Schema::hasColumn($medic->getTable(), $legacyColumn)) {
+                    $medic->setAttribute($legacyColumn, $medic->anios_experiencia);
+                }
+            }
+        });
+    }
 
     public function cites()
     {

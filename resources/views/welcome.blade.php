@@ -1,183 +1,175 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gestión SANAR+</title>
+@extends('layouts.app')
 
-    
+@section('title', 'SCC | Sistemas de Control de Citas')
 
-    <style>
-        :root {
-            /* COLORES PRINCIPALES */
-            --color-principal: #0074B7;
-            --color-secundario: #4aa79c;
-            --color-fondo: #f4f4f4;
-            --color-blanco: #ffffff;
-            --color-texto: #333;
+@section('content')
+<section class="landing-hero">
+    <article class="hero-panel">
+        <span class="section-kicker">Gestion de citas pensada para personas</span>
+        <h1 class="hero-title">Una entrada clara y amable para pacientes, recepcion y personal medico.</h1>
+        <p class="hero-copy">
+            SANAR+ organiza el flujo de atencion desde el primer ingreso al sistema. Agenda, confirma y consulta
+            citas con una interfaz limpia, rapida y lista para crecer con tu clinica, centro de salud u hospital.
+        </p>
 
-            /* TABLAS */
-            --color-header-tabla: var(--color-principal);
-            --color-hover-tabla: #f1f1f1;
+        <div class="hero-actions">
+            <a class="button" href="{{ route('login') }}">Iniciar sesion</a>
+            <a class="button button--ghost" href="{{ route('register') }}">Crear cuenta</a>
+        </div>
 
-            /* SOMBRAS */
-            --sombra: 0 4px 10px rgba(0,0,0,0.15);
-        }
+        <div class="hero-stats">
+            <div class="mini-stat">
+                <strong>24/7</strong>
+                <span>Acceso a la agenda y al historial operativo.</span>
+            </div>
+            <div class="mini-stat">
+                <strong>3 perfiles</strong>
+                <span>Util para recepcion, equipo clinico y administracion.</span>
+            </div>
+            <div class="mini-stat">
+                <strong>2 clics</strong>
+                <span>Para entrar al sistema con email o acceso social.</span>
+            </div>
+        </div>
+    </article>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+    <aside class="preview-panel">
+        <div class="preview-card">
+            <div class="preview-card__row">
+                <div>
+                    <strong>Agenda activa</strong>
+                    <p class="section-copy">Resumen rapido del dia para tomar decisiones sin perder tiempo.</p>
+                </div>
+                <span class="status-badge status-badge--ok">Operativa</span>
+            </div>
+        </div>
 
-        body {
-            background: var(--color-fondo);
-        }
+        <div class="preview-card">
+            <div class="list-row">
+                <span>Consultas confirmadas</span>
+                <strong>18</strong>
+            </div>
+            <div class="list-row">
+                <span>Pacientes por validar</span>
+                <strong>05</strong>
+            </div>
+            <div class="list-row">
+                <span>Especialidades activas</span>
+                <strong>07</strong>
+            </div>
+        </div>
 
-        /* HEADER */
-        header {
-            background: var(--color-principal);
-            color: var(--color-blanco);
-            text-align: center;
-            padding: 30px;
-            font-size: 28px;
-            font-weight: bold;
-        }
+        <div class="preview-card">
+            <div class="preview-card__row">
+                <div>
+                    <strong>Accesos listos</strong>
+                    <p class="section-copy">Email, Google y GitHub quedan preparados para tus pruebas de servidor.</p>
+                </div>
+                <span class="status-badge status-badge--info">Conectable</span>
+            </div>
+        </div>
+    </aside>
+</section>
 
-        /* MENU */
-        .menu {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin: 30px;
-        }
+<section class="module-section">
+    <article class="module-panel">
+        <h2 class="section-title">Modulos esenciales del sistema</h2>
+        <p class="section-copy">
+            La portada anticipa lo que mas importa en una plataforma de citas: pacientes, medicos, agenda y seguimiento.
+        </p>
 
-        /* TARJETAS */
-        .card {
-            width: 140px;
-            height: 120px;
-            background: var(--color-blanco);
-            border-radius: 15px;
-            box-shadow: var(--sombra);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
-            color: var(--color-principal);
-        }
+        <div class="module-grid">
+            <div class="module-card">
+                <h3>Pacientes</h3>
+                <p>Registro ordenado con datos clave para una atencion mas rapida y precisa.</p>
+            </div>
+            <div class="module-card">
+                <h3>Medicos</h3>
+                <p>Especialidades, disponibilidad y trazabilidad del equipo profesional.</p>
+            </div>
+            <div class="module-card">
+                <h3>Citas</h3>
+                <p>Control de estados, horarios y motivos de consulta en un mismo flujo.</p>
+            </div>
+            <div class="module-card">
+                <h3>Tratamientos</h3>
+                <p>Seguimiento de planes clinicos y continuidad del cuidado del paciente.</p>
+            </div>
+        </div>
+    </article>
 
-        .card:hover {
-            transform: translateY(-8px);
-            background: var(--color-principal);
-            color: var(--color-blanco);
-        }
+    <article class="contenedor-tablas">
+        <h2 class="section-title">Vista previa operacional</h2>
+        <p class="section-copy">
+            Cada tarjeta cambia la tabla activa para simular el recorrido natural dentro del sistema.
+        </p>
 
-        /* CONTENEDOR TABLAS */
-        .contenedor-tablas {
-            width: 90%;
-            margin: auto;
-            background: var(--color-blanco);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: var(--sombra);
-            margin-bottom: 40px;
-        }
+        <div class="menu">
+            <div class="card" onclick="mostrarTabla('pacientes')">
+                <strong>Pacientes</strong>
+                <span>Historias y datos de contacto.</span>
+            </div>
+            <div class="card" onclick="mostrarTabla('medicos')">
+                <strong>Medicos</strong>
+                <span>Especialidades y disponibilidad.</span>
+            </div>
+            <div class="card" onclick="mostrarTabla('citas')">
+                <strong>Citas</strong>
+                <span>Reservas y control diario.</span>
+            </div>
+            <div class="card" onclick="mostrarTabla('diagnosticos')">
+                <strong>Diagnosticos</strong>
+                <span>Hallazgos y observaciones.</span>
+            </div>
+            <div class="card" onclick="mostrarTabla('tratamientos')">
+                <strong>Tratamientos</strong>
+                <span>Seguimiento clinico.</span>
+            </div>
+            <div class="card" onclick="mostrarTabla('medicamentos')">
+                <strong>Medicamentos</strong>
+                <span>Dosis y frecuencia de apoyo.</span>
+            </div>
+        </div>
 
-        h2 {
-            margin-bottom: 20px;
-            color: var(--color-texto);
-        }
-
-        /* TABLAS */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            display: none;
-        }
-
-        table.active {
-            display: table;
-        }
-
-        th {
-            background: var(--color-header-tabla);
-            color: var(--color-blanco);
-            padding: 12px;
-        }
-
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-        }
-
-        tr:hover {
-            background: var(--color-hover-tabla);
-        }
-    </style>
-</head>
-<body>
-
-    <header>SISTEMA DE GESTIÓN SANAR +</header>
-
-    <div class="menu">
-        <div class="card" onclick="mostrarTabla('pacientes')">Pacientes</div>
-        <div class="card" onclick="mostrarTabla('medicos')">Médicos</div>
-        <div class="card" onclick="mostrarTabla('citas')">Citas</div>
-        <div class="card" onclick="mostrarTabla('diagnosticos')">Diagnósticos</div>
-        <div class="card" onclick="mostrarTabla('tratamientos')">Tratamientos</div>
-        <div class="card" onclick="mostrarTabla('medicamentos')">Medicamentos</div>
-    </div>
-
-    <div class="contenedor-tablas">
-        <h2>Información</h2>
-
-        <!-- PACIENTES -->
         <table id="pacientes" class="active">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Teléfono</th>
+                <th>Telefono</th>
                 <th>Tipo Sangre</th>
             </tr>
             <tr>
                 <td>1</td>
                 <td>Juan</td>
-                <td>Pérez</td>
+                <td>Perez</td>
                 <td>987654321</td>
                 <td>O+</td>
             </tr>
             <tr>
                 <td>2</td>
-                <td>María</td>
+                <td>Maria</td>
                 <td>Torres</td>
                 <td>912345678</td>
                 <td>A-</td>
             </tr>
         </table>
 
-        <!-- MEDICOS -->
         <table id="medicos">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Especialidad</th>
-                <th>Teléfono</th>
+                <th>Telefono</th>
             </tr>
             <tr>
                 <td>1</td>
                 <td>Carlos Ruiz</td>
-                <td>Cardiología</td>
+                <td>Cardiologia</td>
                 <td>999888777</td>
             </tr>
         </table>
 
-        <!-- CITAS -->
         <table id="citas">
             <tr>
                 <th>ID</th>
@@ -193,39 +185,36 @@
             </tr>
         </table>
 
-        <!-- DIAGNOSTICOS -->
         <table id="diagnosticos">
             <tr>
                 <th>ID</th>
-                <th>Descripción</th>
+                <th>Descripcion</th>
                 <th>Gravedad</th>
                 <th>Tipo</th>
             </tr>
             <tr>
                 <td>1</td>
-                <td>Hipertensión leve</td>
+                <td>Hipertension leve</td>
                 <td>Media</td>
                 <td>Cardiaco</td>
             </tr>
         </table>
 
-        <!-- TRATAMIENTOS -->
         <table id="tratamientos">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Duración</th>
+                <th>Duracion</th>
                 <th>Estado</th>
             </tr>
             <tr>
                 <td>1</td>
-                <td>Terapia física</td>
+                <td>Terapia fisica</td>
                 <td>3 meses</td>
                 <td>Activo</td>
             </tr>
         </table>
 
-        <!-- MEDICAMENTOS -->
         <table id="medicamentos">
             <tr>
                 <th>ID</th>
@@ -240,19 +229,18 @@
                 <td>Cada 8h</td>
             </tr>
         </table>
-    </div>
+    </article>
+</section>
+@endsection
 
-    <script>
-        function mostrarTabla(idTabla) {
-            let tablas = document.querySelectorAll("table");
+@push('scripts')
+<script>
+    function mostrarTabla(idTabla) {
+        document.querySelectorAll('table').forEach((tabla) => {
+            tabla.classList.remove('active');
+        });
 
-            tablas.forEach(tabla => {
-                tabla.classList.remove("active");
-            });
-
-            document.getElementById(idTabla).classList.add("active");
-        }
-    </script>
-
-</body>
-</html>
+        document.getElementById(idTabla).classList.add('active');
+    }
+</script>
+@endpush

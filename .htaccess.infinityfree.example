@@ -1,0 +1,7 @@
+RewriteEngine On
+
+# Si usas archivos publicos de Laravel, deja esta regla antes del catch-all.
+RewriteRule ^storage/(.*)$ /storage/app/public/$1 [L]
+
+# Reenvia todas las peticiones al front controller dentro de /public.
+RewriteRule (.*) /public/$1 [L]

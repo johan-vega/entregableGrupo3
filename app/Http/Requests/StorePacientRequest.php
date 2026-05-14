@@ -12,7 +12,7 @@ class StorePacientRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()?->isAdmin() ?? false;
     }
 
     /**
@@ -23,7 +23,28 @@ class StorePacientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre' => ['required', 'string', 'max:255'],
+            'apellido' => ['required', 'string', 'max:255'],
+            'fecha_nacimiento' => ['required', 'date'],
+            'genero' => ['required', 'string', 'max:50'],
+            'telefono' => ['required', 'string', 'max:50'],
+            'direccion' => ['required', 'string', 'max:255'],
+            'tipo_sangre' => ['required', 'string', 'max:10'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'nombre' => 'nombre',
+            'apellido' => 'apellido',
+            'fecha_nacimiento' => 'fecha de nacimiento',
+            'genero' => 'genero',
+            'telefono' => 'telefono',
+            'direccion' => 'direccion',
+            'tipo_sangre' => 'tipo de sangre',
+            'password' => 'contrasena',
         ];
     }
 }

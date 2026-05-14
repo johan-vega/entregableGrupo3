@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Index | SANAR+')
+@section('title', 'Ingresar | SANAR+')
 
 @section('content')
     <section class="auth-shell">
